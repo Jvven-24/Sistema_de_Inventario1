@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace CapaNegocio
 {
-    public class CD_Productos
+    public class CN_FuncionesProductos
     {
         private Conexion objConexion = new Conexion();
 
@@ -185,7 +185,7 @@ namespace CapaNegocio
     }
     public class CN_Productos
     {
-        private CD_Productos objCapaDatos = new CD_Productos();
+        private CN_FuncionesProductos objCapaDatos = new CN_FuncionesProductos();
 
         // Validar datos del producto
         private bool ValidarProducto(string codigo, string nombre, int cantidad, decimal precio, out string mensaje)
