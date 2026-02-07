@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -67,36 +68,46 @@ namespace Sistema_de_Inventario
             try
             {
                 string opcion = PromptInput("¿Desea buscar por (1) Código o (2) Nombre?");
-
-                if (opcion == "1")
+                if (string.IsNullOrEmpty(opcion)) { MessageBox.Show("Ingrese un valor"); return; }
+                if (opcion == "1" || opcion == "2")
                 {
-                    string codigo = PromptInput("Ingrese el código a buscar:");
-                    if (string.IsNullOrWhiteSpace(codigo)) return;
+                    switch (opcion)
+                    {
+                        case "1":
+                            string codigo = PromptInput("Ingrese el código a buscar:");
+                            if (string.IsNullOrWhiteSpace(codigo)) return;
 
-                    DataTable resultado = objNegocio.ConsultarPorCodigo(codigo);
-                    if (resultado.Rows.Count > 0)
-                    {
-                        dgvProductos.DataSource = resultado;
+                            DataTable resultado = objNegocio.ConsultarPorCodigo(codigo);
+                            if (resultado.Rows.Count > 0)
+                            {
+                                dgvProductos.DataSource = resultado;
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se encontraron productos con ese código.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            break;
+                        case "2":
+                            string nombre = PromptInput("Ingrese el nombre a buscar:");
+                            if (string.IsNullOrWhiteSpace(nombre)) return;
+
+                            DataTable resultado2 = objNegocio.ConsultarPorNombre(nombre);
+                            if (resultado2.Rows.Count > 0)
+                            {
+                                dgvProductos.DataSource = resultado2;
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se encontraron productos con ese nombre.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            break;
                     }
-                    else
-                    {
-                        MessageBox.Show("No se encontraron productos con ese código.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+
                 }
-                else if (opcion == "2")
+                else
                 {
-                    string nombre = PromptInput("Ingrese el nombre a buscar:");
-                    if (string.IsNullOrWhiteSpace(nombre)) return;
-
-                    DataTable resultado = objNegocio.ConsultarPorNombre(nombre);
-                    if (resultado.Rows.Count > 0)
-                    {
-                        dgvProductos.DataSource = resultado;
-                    }
-                    else
-                    {
-                        MessageBox.Show("No se encontraron productos con ese nombre.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    MessageBox.Show("Escriba 1 o 2","Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
             }
             catch (Exception ex)
