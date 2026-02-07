@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{C9917D31-B579-47DC-9464-14BE65D6E895}"
 	ProjectSection(SolutionItems) = preProject
 		CapaDatos\Database\SQLQuery3.sql = CapaDatos\Database\SQLQuery3.sql
+		CapaDatos\Database\Tablas.sql = CapaDatos\Database\Tablas.sql
 	EndProjectSection
 EndProject
 Global
